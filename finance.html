@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seasonal Expenditure Form</title>
+    <style>
+        body {
+            background-image: url('fin.jpg');
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        h2 {
+            color: #f8f9fa;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 15px 0;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #276f37;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Seasonal Expenditure Input</h2>
+        <form id="expenditureForm">
+            <div class="section">
+                <h3>Pesticide</h3>
+                <label for="pesticideArea">Area (hectares in square meter):</label>
+                <input type="number" id="pesticideArea" name="pesticideArea" required>
+                <label for="pesticideVolume">Volume (mililiters/liters):</label>
+                <input type="number" id="pesticideVolume" name="pesticideVolume" required>
+                <label for="pesticideCost">Cost (rupees):</label>
+                <input type="number" id="pesticideCost" name="pesticideCost" required>
+            </div>
+            
+            <div class="section">
+                <h3>Seeds</h3>
+                <label for="seedsname">Name (hectares):</label>
+                <select class="form-select" aria-label="Default select example">
+                    <option selected>Open this select menu</option>
+                    <option value="1">paddy</option>
+                    <option value="2">wheat</option>
+                    <option value="3">corn</option>
+                  </select>
+                <label for="seedsArea">Area (hectares):</label>
+                <input type="number" id="seedsArea" name="seedsArea" required>
+                <label for="seedsKg">Weight (kg):</label>
+                <input type="number" id="seedsKg" name="seedsKg" required>
+                <label for="seedsCost">Cost (rupees):</label>
+                <input type="number" id="seedsCost" name="seedsCost" required>
+            </div>
+            
+            <div class="section">
+                <h3>Labour</h3>
+                <label for="labourDays">Days:</label>
+                <input type="number" id="labourDays" name="labourDays" required>
+                <label for="labourInTime">In Time:</label>
+                <input type="time" id="labourInTime" name="labourInTime" required>
+                <label for="labourOutTime">Out Time:</label>
+                <input type="time" id="labourOutTime" name="labourOutTime" required>
+                <label for="labourCost">Cost (rupees):</label>
+                <input type="number" id="labourCost" name="labourCost" required>
+            </div>
+            
+            <div class="section">
+                <h3>Vehicle</h3>
+                <label for="vehicleDate">Date:</label>
+                <input type="date" id="vehicleDate" name="vehicleDate" required>
+                <label for="vehiclePetrolCost">Petrol Cost (rupees):</label>
+                <input type="number" id="vehiclePetrolCost" name="vehiclePetrolCost" required>
+                <label for="vehicleRent">Rent (rupees):</label>
+                <input type="number" id="vehicleRent" name="vehicleRent" required>
+            </div>
+            
+            <div class="section">
+                <h3>Harvesting with Labour</h3>
+                <label for="harvestLabourDays">Days:</label>
+                <input type="number" id="harvestLabourDays" name="harvestLabourDays" required>
+                <label for="harvestLabourInTime">In Time:</label>
+                <input type="time" id="harvestLabourInTime" name="harvestLabourInTime" required>
+                <label for="harvestLabourOutTime">Out Time:</label>
+                <input type="time" id="harvestLabourOutTime" name="harvestLabourOutTime" required>
+                <label for="harvestLabourCost">Cost (rupees):</label>
+                <input type="number" id="harvestLabourCost" name="harvestLabourCost" required>
+            </div>
+            
+            <div class="section">
+                <h3>Harvesting with Cultivator</h3>
+                <label for="harvestCultivatorDate">Date:</label>
+                <input type="date" id="harvestCultivatorDate" name="harvestCultivatorDate" required>
+                <label for="harvestCultivatorPetrolCost">Petrol Cost (rupees):</label>
+                <input type="number" id="harvestCultivatorPetrolCost" name="harvestCultivatorPetrolCost" required>
+                <label for="harvestCultivatorRent">Rent (rupees):</label>
+                <input type="number" id="harvestCultivatorRent" name="harvestCultivatorRent" required>
+            </div>
+            
+            <button type="button" onclick="submitData()">Submit</button>
+        </form>
+    </div>
+    <div class="container">
+        <h1>Fertilizer Ratio Calculator</h1>
+        <form id="fertilizerForm">
+            <label for="plotSize">Plot Size (in square meters):</label>
+            <input type="number" id="plotSize" name="plotSize" required>
+            
+            <label for="fertilizerType">Select Fertilizer Type:</label>
+            <select id="fertilizerType" name="fertilizerType" required>
+                <option value="TypeA">DAP</option>
+                <option value="TypeB">MOP</option>
+                <option value="TypeC">UREA</option>
+            </select>
+            
+            <button type="button" onclick="calculateFertilizer()">Calculate</button>
+        </form>
+        
+        <div id="result">
+            <h2>Required Fertilizer Amount:</h2>
+            <p id="fertilizerAmount"></p>
+        </div>
+    </div>
+
+    <script>
+        function submitData() {
+            const form = document.getElementById('expenditureForm');
+            const formData = new FormData(form);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+            localStorage.setItem('expenditureData', JSON.stringify(data));
+            alert('Data saved successfully!');
+        }
+    </script>
+</body>
+</html>
